@@ -1,0 +1,20 @@
+import java.time.LocalDateTime;
+
+public class PushNotification extends Notification {
+    String deviceId;
+
+    public PushNotification(
+            String recipient,
+            String message,
+            Priority priority,
+            LocalDateTime timestamp,
+            String deviceId) {
+        super(recipient, message, priority, timestamp);
+        this.deviceId = deviceId;
+    }
+
+    @Override
+    public void send() {
+        System.out.println("\uD83D\uDD14 Отправлено push-уведомление на устройство " + deviceId +": " + message);
+    }
+}
