@@ -6,9 +6,9 @@ public class SMSNotification extends Notification {
     public SMSNotification(String recipient,
                              String message,
                              Priority priority,
-                             LocalDateTime timestamp,
+                             LocalDateTime scheduleTime,
                              String phoneNumber) {
-        super(recipient, message, priority, timestamp);
+        super(recipient, message, priority, scheduleTime);
         this.phoneNumber = phoneNumber;
     }
 

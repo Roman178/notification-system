@@ -6,9 +6,9 @@ public class EmailNotification extends Notification {
     public EmailNotification(String recipient,
                              String message,
                              Priority priority,
-                             LocalDateTime timestamp,
+                             LocalDateTime scheduleTime,
                              String emailAddress) {
-        super(recipient, message, priority, timestamp);
+        super(recipient, message, priority, scheduleTime);
         this.emailAddress = emailAddress;
     }
 

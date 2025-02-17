@@ -14,15 +14,45 @@ public class NotificationManager {
         }
     }
 
+    public void sendAll(NotificationLogger logger) {
+        for (Notification notification: notifications) {
+            if (notification.isReadyToSend()) {
+                notification.send();
+                logger.addLog(notification.createLog());
+            } else {
+                System.out.println(notification.messageWasNotSent());
+            }
+        }
+    }
+
     public void sendUrgent() {
         notifications.stream()
                 .filter(Notification::isUrgent)
                 .forEach(Notification::send);
     }
 
+    public void sendUrgent(NotificationLogger logger) {
+        notifications.stream()
+                .filter(Notification::isUrgent)
+                .forEach(note -> {
+                    if (note.isReadyToSend()) {
+                        note.send();
+                        logger.addLog(note.createLog());
+                    } else {
+                        System.out.println(note.messageWasNotSent());
+                    }
+                });
+    }
+
     public void saveAll() {
         for (Notification notification: notifications) {
             notification.save();
+        }
+    }
+
+    public void saveLogsToFile() {
+        for (Notification notification: notifications) {
+            notification.saveLogsToFile();
         }
     }
 }

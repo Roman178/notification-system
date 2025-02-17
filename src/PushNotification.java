@@ -7,9 +7,9 @@ public class PushNotification extends Notification {
             String recipient,
             String message,
             Priority priority,
-            LocalDateTime timestamp,
+            LocalDateTime scheduleTime,
             String deviceId) {
-        super(recipient, message, priority, timestamp);
+        super(recipient, message, priority, scheduleTime);
         this.deviceId = deviceId;
     }
 
