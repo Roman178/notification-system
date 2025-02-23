@@ -10,14 +10,14 @@ public class NotificationManager {
 
     public void sendAll() {
         for (Notification notification: notifications) {
-            notification.send();
+            notification.sendNotification();
         }
     }
 
     public void sendAll(NotificationLogger logger) {
         for (Notification notification: notifications) {
             if (notification.isReadyToSend()) {
-                notification.send();
+                notification.sendNotification();
                 logger.addLog(notification.createLog());
             } else {
                 System.out.println(notification.messageWasNotSent());
@@ -28,7 +28,7 @@ public class NotificationManager {
     public void sendUrgent() {
         notifications.stream()
                 .filter(Notification::isUrgent)
-                .forEach(Notification::send);
+                .forEach(Notification::sendNotification);
     }
 
     public void sendUrgent(NotificationLogger logger) {
@@ -36,7 +36,7 @@ public class NotificationManager {
                 .filter(Notification::isUrgent)
                 .forEach(note -> {
                     if (note.isReadyToSend()) {
-                        note.send();
+                        note.sendNotification();
                         logger.addLog(note.createLog());
                     } else {
                         System.out.println(note.messageWasNotSent());

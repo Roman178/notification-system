@@ -14,7 +14,7 @@ public class PushNotification extends Notification {
     }
 
     @Override
-    public void send() {
+    protected void send() {
         System.out.println("\uD83D\uDD14 Отправлено push-уведомление на устройство " + deviceId +": " + message);
     }
 }

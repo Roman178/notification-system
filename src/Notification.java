@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -24,11 +25,22 @@ public abstract class Notification implements Storable {
         this.scheduleTime = scheduleTime;
     }
 
+    private void setScheduleTime(LocalDateTime scheduleTime) {
+        this.scheduleTime = scheduleTime;
+    }
+
     public boolean isReadyToSend() {
         return scheduleTime == null || scheduleTime.isBefore(LocalDateTime.now());
     }
 
-    public abstract void send();
+    protected abstract void send();
+
+    public void sendNotification() {
+        if (scheduleTime == null) {
+            setScheduleTime(LocalDateTime.now());
+        }
+        send();
+    }
 
     public String createLog() {
         return "(" + priority + ") " + "Уведомление для " + recipient + ": " + message + " [отправлено в " + scheduleTime + "]";
@@ -50,10 +62,9 @@ public abstract class Notification implements Storable {
 
     @Override
     public void saveLogsToFile() {
-        try {
-            String fileName = "logs.txt";
-            String log = createLog();
-            Files.write(Path.of(fileName), log.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        try(FileWriter writer = new FileWriter("logs.txt", true)) {
+            String log = createLog() + "\n";
+            writer.write(log);
         } catch (IOException e) {
             e.printStackTrace();
         }

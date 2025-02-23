@@ -13,7 +13,7 @@ public class SMSNotification extends Notification {
     }
 
     @Override
-    public void send() {
+    protected void send() {
         StringBuilder msg = new StringBuilder("\uD83D\uDCF1 Отправлено SMS на ")
                 .append(phoneNumber)
                 .append(": ")

@@ -13,7 +13,7 @@ public class EmailNotification extends Notification {
     }
 
     @Override
-    public void send() {
+    protected void send() {
         StringBuilder msg = new StringBuilder( "\uD83D\uDCE7 Отправлено email на ")
                 .append(emailAddress)
                 .append(": ")
